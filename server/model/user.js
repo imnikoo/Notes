@@ -9,24 +9,19 @@ let User = new mongoose.Schema({
         required: true,
         trim: true
     },
-    username: {
-        type: String,
-        unique: true,
-        required: true,
-        trim: true
-    },
     password: {
         type: String,
         required: true,
     },
-    passwordConf: {
+    salt: {
         type: String,
-        required: true,
+        required: true
     }
 });
 
 User.methods.encrypt = password => {
-  return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
+    //let salt = crypto.randomBytes(128).toString('hex');
+    return crypto.createHash('sha256').update(password + this.salt).digest('hex');
 };
 
 module.exports = mongoose.model('User', User);

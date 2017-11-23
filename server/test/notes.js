@@ -3,14 +3,94 @@ process.env.NODE_ENV = 'test';
 
 let mongoose = require("mongoose");
 let Note = require('../model/note.js');
-
+let User = require('../model/user.js');
+const crypto = require('crypto');
 //Подключаем dev-dependencies
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../../server');
 let should = chai.should();
+let expect = chai.expect;
 
 chai.use(chaiHttp);
+
+describe('Auth', () => {
+    beforeEach((done) => { //Перед каждым тестом чистим базу
+        User.remove({}, (err) => {
+            done();
+        });
+    });
+
+    describe('/POST/signup', () => {
+        it('it should create new user with email and hashed password', (done) => {
+            let user = {
+                email: 'userBOSS@gmail.com',
+                password: 'password'
+            };
+
+            //let passwordWithSalt = crypto.createHash('sha256').update('password').digest('hex');
+            //let salt = crypto.randomBytes(128).toString('hex');
+
+            chai.request('http://localhost:9000/')
+                .post('api/auth/signup')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    User.findOne({email: 'userBOSS@gmail.com'}).then(dbuser => {
+                        expect(dbuser).to.exist();
+                        dbuser.should.have.property('password').that.does.equal(dbuser.encrypt(user.password));
+                        dbuser.should.have.property('email').that.does.equal(user.email);
+                    });
+                    done();
+                });
+        });
+
+        it('it should return bad result if there already such email', (done) => {
+            let user = {
+                email: 'userBOSS@gmail.com',
+                password: 'password',
+            };
+
+            //let passwordWithSalt = crypto.createHash('sha256').update('password').digest('hex');
+            //let salt = crypto.randomBytes(128).toString('hex');
+
+            chai.request('http://localhost:9000/')
+                .post('api/auth/signup')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.an('object');
+                    res.body.should.have.property('errorMessage').that.does.equal('Such email already registered.');
+
+                    done();
+                });
+        });
+    });
+
+    describe('/POST/signin', () => {
+        it('it should return auth token', (done) => {
+            let credentials = {
+                email: 'userBOSS@gmail.com',
+                password: 'password',
+            };
+            let user = Object.assign(new User(), credentials, {
+                salt: 'salt'
+            });
+            user.password = user.encrypt(user.password);
+            user.save().then(() => {
+                chai.request('http://localhost:9000/')
+                    .post('api/auth/signin')
+                    .send(credentials)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.have.property('token');
+                        done();
+                    });
+            });
+        });
+    });
+});
+
 describe('Notes', () => {
     beforeEach((done) => { //Перед каждым тестом чистим базу
         Note.remove({}, (err) => {
