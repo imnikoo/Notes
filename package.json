@@ -1,8 +1,11 @@
 {
-  "name": "Calculator",
+  "name": "Notes",
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^4.0.1",
     "react-scripts": "^1.0.17"
   },
   "dependencies": {
@@ -25,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch-all": "concurrently \"npm run start\" \"nodemon ./server\""
   },
   "homepage": "localhost:9000/"
 }
