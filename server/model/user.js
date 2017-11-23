@@ -12,14 +12,6 @@ let User = new Schema (
     }
 );
 
-User.pre('save', next => {
-    let now = new Date();
-    if(!this.createdAt) {
-        this.createdAt = now;
-    }
-    next();
-});
-
 User.methods.encrypt = password => {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
 };
