@@ -1,21 +1,14 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom'
-import Home from '../home'
+import Start from '../start';
 import About from '../about'
-import './app.css';
+import './styles.css';
 
 const App = () => (
-    <div>
-        <header>
-            <Link to="/">Home</Link>
-            <Link to="/about-us">About</Link>
-        </header>
-        ХУЇ
-        <div className="components">
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/about-us" component={About}/>
-        </div>
+    <div className="components">
+        <Route exact path="/" component={Start}/>
+        <Route exact path="/about-us" component={About}/>
     </div>
-)
+);
 
 export default App

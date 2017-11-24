@@ -12,7 +12,6 @@ let options = {
    useMongoClient: true,
 };
 
-
 if (process.env.NODE_ENV === 'test') {
    mongoose.connect('mongodb://localhost/testnotes', options);
 } else {

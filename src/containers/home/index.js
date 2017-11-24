@@ -3,11 +3,11 @@ import {push} from 'react-router-redux'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {map} from 'lodash';
-import './calculator.css';
+import './styles.css';
 import {
     numberClick,
     actionClick
-} from '../../modules/calculator';
+} from '../../reducers/calculator';
 
 const Home = props => (
     <div className="workspace-container">
