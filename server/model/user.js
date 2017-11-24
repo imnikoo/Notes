@@ -19,9 +19,4 @@ let User = new mongoose.Schema({
     }
 });
 
-User.methods.encrypt = password => {
-    //let salt = crypto.randomBytes(128).toString('hex');
-    return crypto.createHash('sha256').update(password + this.salt).digest('hex');
-};
-
 module.exports = mongoose.model('User', User);
