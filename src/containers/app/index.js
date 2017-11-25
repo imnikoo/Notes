@@ -1,13 +1,14 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom'
 import Start from '../start';
-import About from '../about'
+import Auth from '../auth';
 import './styles.css';
 
 const App = () => (
     <div className="components">
         <Route exact path="/" component={Start}/>
-        <Route exact path="/about-us" component={About}/>
+        <Route exact path="/registration" component={Auth}/>
+        <Route exact path="/login" component={Auth}/>
     </div>
 );
 

@@ -12,7 +12,8 @@ const signUp = (req, res) => {
    }
    User.findOne({ email }).then((user) => {
       if(user) {
-         res.status(400).send({ errorMessage: 'Such email already registered.'})
+         res.status(400).send({ errorMessage: 'Such email already registered.'});
+         return;
       }
       let salt = encryptionService.generateSalt(128);
       let newUser = Object.assign(new User(), {
@@ -30,7 +31,8 @@ const signIn = (req, res) => {
    let credentials = retriveCredentials(req);
    User.findOne({ email: credentials.email }).then((user) => {
       if(!user) {
-         res.status(400).send({ errorMessage: 'Email or password is incorrect' })
+         res.status(400).send({ errorMessage: 'Email or password is incorrect' });
+         return;
       }
       let passwordMatch = encryptionService.compare(user.password, credentials.password, user.salt);
       if(passwordMatch) {

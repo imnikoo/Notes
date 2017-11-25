@@ -1,0 +1,172 @@
+.auth {
+    width: 45%;
+    display: grid;
+    grid-template-rows: 20% 70% auto;
+    font-family: Roboto;
+}
+
+.card {
+    box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+    will-change: transform;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.action-name-container {
+    background-color: #5E35B1;
+    display: flex;
+}
+
+.action-name-container__name {
+    color: white;
+    font-size: 52px;
+    padding: 8px 8px 8px 22px;
+    text-transform: uppercase;
+    font-style: oblique;
+}
+
+.credentials {
+    display: flex;
+    flex-flow: column;
+    padding: 8px 8px 8px 22px;
+}
+
+.auth__actions {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #E0E0E0;
+}
+
+.button {
+    border: none;
+    background: transparent;
+    outline: none;
+    position: relative;
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    color: black;
+}
+
+.input-group {
+    position: relative;
+    margin: 22px 0 22px 0;
+}
+
+input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* LABEL ======================================= */
+label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #5E35B1;
+}
+
+/* BOTTOM BARS ================================= */
+.bar {
+    position: relative;
+    display: block;
+    width: 300px;
+}
+
+.bar:before, .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5E35B1;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+    left: 50%;
+}
+
+.bar:after {
+    right: 50%;
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width: 50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
