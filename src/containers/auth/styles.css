@@ -1,3 +1,11 @@
+.scale-in-enter.scale-in-enter-active {
+    animation: puff-in-center 0.4s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+}
+
+.scale-in-exit.scale-in-exit-active {
+    animation: puff-out-center 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+}
+
 .auth {
     width: 45%;
     display: grid;
@@ -170,3 +178,34 @@ input:focus ~ .highlight {
         background: transparent;
     }
 }
+
+@keyframes puff-in-center {
+    0% {
+        transform: scale(2);
+        filter: blur(2px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes puff-out-center {
+    0% {
+        transform: scale(1);
+        filter: blur(0px);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        filter: blur(2px);
+        opacity: 0;
+    }
+}
+
+
+
+
+

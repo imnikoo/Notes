@@ -87,3 +87,21 @@
 .actions__sign-up:hover::after {
     background-color: #5E35B1;
 }
+
+.fade-in-enter.fade-in-enter-active {
+    animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-in
+ * ----------------------------------------
+ */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
