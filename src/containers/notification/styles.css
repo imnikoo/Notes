@@ -1,0 +1,27 @@
+.notification {
+    font-family: Roboto;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.error {
+    background-color: #F44336;
+    color: black;
+}
+
+.warning {
+    background-color: #FF9800;
+    color: black;
+}
+
+.info {
+    background-color: #03A9F4;
+    color: black;
+
+}
