@@ -6,7 +6,6 @@ export const auth_request = (credentials) => {
    return dispatch => {
       dispatch({type: AUTH_REQUEST});
       let base64credentials = new Buffer(`${credentials.email}:${credentials.password}`).toString('base64');
-      this.props.auth_request();
       http({
          method: 'get',
          url: 'api/auth/signin',

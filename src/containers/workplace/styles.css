@@ -1,0 +1,43 @@
+.workplace {
+    display: grid;
+    grid-template-columns: 20% auto;
+    grid-template-rows: 30% auto;
+    width: 85%;
+    height: 85%;
+}
+
+.logo {
+    padding: 8px;
+}
+.logo__img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.recent-notes {
+    padding: 8px;
+    display: grid;
+    grid-template-rows: auto 85%;
+}
+.recent_notes__title {
+    align-self: center;
+    font-size: 20px;
+    padding-left: 8px;
+    font-weight: 500;
+}
+.notes-container {
+    overflow-y: auto;
+}
+.note {
+    padding: 8px;
+    border-bottom: 1px solid #E0E0E0;
+}
+.workplace__actions {
+    background-color: green;
+    padding: 8px;
+}
+.all-notes {
+    background-color: #4285F4;
+    padding: 8px;
+}

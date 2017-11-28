@@ -9,6 +9,7 @@ import Input from '../../components/Input';
 import "./styles.css";
 import Spinner from "../../components/Spinner/index";
 import classnames from 'classnames';
+import {notification_show} from "../../actions/notification";
 const emailRegExp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 
@@ -60,14 +61,29 @@ class Auth extends Component {
 
 
    renderForwardButton(isRegistration) {
-      let {email, password} = this.state;
+      let {email, password, passwordConfirmation} = this.state;
       let { register_request, auth_request } = this.props;
-      let credentials = {email, password};
+      let credentials = {email, password, passwordConfirmation};
 
-      let clickHandler = isRegistration ? register_request : auth_request;
+      let validateAndSubmit = (credentials) => {
+         if(isRegistration) {
+            if(credentials.email !== '' && credentials.password !== '' && credentials.password === credentials.passwordConfirmation) {
+               register_request(credentials);
+            } else {
+               this.props.notification_show('ERROR', 'Provide email and password');
+            }
+         } else {
+            if(credentials.email !== '' && credentials.password !== '') {
+               auth_request(credentials);
+            } else {
+               this.props.notification_show('ERROR', 'Provide email and password');
+            }
+         }
+
+      };
       return (
          <button className="button auth__forward"
-                 onClick={() => clickHandler(credentials)}>{this.state.action}</button>);
+                 onClick={() => validateAndSubmit(credentials)}>{this.state.action}</button>);
    }
 
    render() {
@@ -86,7 +102,7 @@ class Auth extends Component {
                      value={this.state.email}
                      onChange={this.handleInputChange}
                      validationRule={{pattern: emailRegExp}} //TODO: string, regexp, fn, number
-                     validationMessage='Email is not correct'
+                     validationMessage='Email is not correct' //TODO: how to know unput is invalid????!!!!!!!!!!!!
                   />
                   <Input
                      type='password'
@@ -126,6 +142,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
    goBack,
    auth_request,
    register_request,
+   notification_show
 }, dispatch);
 
 export default connect(
