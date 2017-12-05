@@ -1,30 +1,27 @@
 .workplace {
     display: grid;
-    grid-template-columns: 20% auto;
-    grid-template-rows: 30% auto;
-    width: 85%;
-    height: 85%;
-}
-
-.logo {
-    padding: 8px;
-}
-.logo__img {
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
+    grid-template-rows: 20% auto;
+    width: 65%;
+    height: 65%;
 }
 
 .recent-notes {
-    padding: 8px;
     display: grid;
-    grid-template-rows: auto 85%;
+    grid-template-rows: 1fr 3fr;
 }
-.recent_notes__title {
+.recent-notes__title {
     align-self: center;
     font-size: 20px;
-    padding-left: 8px;
+    padding: 8px 8px 8px 16px;
     font-weight: 500;
+    border-bottom: 1px solid #81C784;
+    background-color: #C8E6C9;
+}
+
+.recent-notes__container {
+    padding: 8px 8px 8px 24px;
+    border-bottom: 1px solid #BDBDBD;
+    overflow-y: hidden;
 }
 .notes-container {
     overflow-y: auto;
@@ -33,11 +30,7 @@
     padding: 8px;
     border-bottom: 1px solid #E0E0E0;
 }
-.workplace__actions {
-    background-color: green;
-    padding: 8px;
-}
+
 .all-notes {
-    background-color: #4285F4;
     padding: 8px;
 }

@@ -5,7 +5,7 @@ let NoteScheme = new Schema (
    {
       title: { type: String, required: true },
       content: { type: String, required: true },
-      user_id: { type: String },
+      userId: { type: String, required: true },
       createdAt: {type: Date, default: Date.now }
    }
 );
