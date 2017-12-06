@@ -27,11 +27,8 @@ const getByUserId = (req, res) => {
    
    Note.find({userId: userId})
       .then(notes => {
-         if(notes && notes.length) {
-            res.status(200).send(notes);
-         }
-         res.status(404).send();
-      }).catch(err => res.send(err));
+         res.status(200).send(notes);
+      }).catch(err => res.status(200).send(err));
    
 };
 

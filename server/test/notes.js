@@ -3,7 +3,6 @@ process.env.NODE_ENV = 'test';
 
 let mongoose = require("mongoose");
 let Note = require('../model/note.js');
-let User = require('../model/user.js');
 const crypto = require('crypto');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
@@ -18,18 +17,18 @@ chai.use(chaiHttp);
 
 describe('Notes', () => {
    beforeEach((done) => {
-      Note.remove({}, (err) => {
+      Note.remove({}, () => {
          done();
       });
    });
-
+   
    let authToken;
    before(done => {
       authToken = authService.generateToken();
       authService.storeToken(authToken, 'test@email.com');
       done();
    });
-
+   
    describe('/GET note', () => {
       it('it should GET all the notes', (done) => {
          chai.request('http://localhost:9000/')
@@ -40,6 +39,23 @@ describe('Notes', () => {
                res.body.should.be.an('array');
                done();
             });
+      });
+      
+      it('it should GET note by note id', (done) => {
+         Object.assign(new Note(), {title: 'first note title', content: 'note content', userId: '1'})
+            .save().then((note) => {
+            chai.request('http://localhost:9000/')
+               .get(`api/notes/${note.id}`)
+               .set('Access-token', authToken)
+               .end((err, res) => {
+                  res.should.have.status(200);
+                  res.body.should.have.property('title').that.does.equal('first note title');
+                  res.body.should.have.property('content').that.does.equal('note content');
+                  res.body.should.have.property('userId').that.does.equal('1');
+                  done();
+               });
+         });
+         
       });
       
       it('it should GET notes by user id', (done) => {
@@ -60,7 +76,7 @@ describe('Notes', () => {
          });
       });
    });
-
+   
    describe('/POST note', () => {
       it('it should create a note', (done) => {
          chai.request('http://localhost:9000/')
@@ -78,7 +94,7 @@ describe('Notes', () => {
             });
       })
    });
-
+   
    describe('/PUT note', () => {
       it('it should change note with id', (done) => {
          let note = Object.assign(new Note(), {title: 'note title', content: 'note content', userId: '1'});

@@ -39,7 +39,8 @@ const signIn = (req, res) => {
          let accessToken = authService.generateToken();
          authService.storeToken(accessToken, user.email);
          res.status(200).send({
-            accessToken
+            accessToken,
+            userId: user._id
          });
       } else {
          res.status(400).send({ errorMessage: 'Email or password is incorrect' })

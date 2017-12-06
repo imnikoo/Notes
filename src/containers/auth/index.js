@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {goBack} from "react-router-redux";
+import {goBack, push} from "react-router-redux";
 import {auth_request, register_request} from "../../actions/auth";
 import drop from "lodash/drop";
 import {CSSTransition} from "react-transition-group";
-import Input from '../../components/Input';
+import Input from "../../components/Input";
 import "./styles.css";
 import Spinner from "../../components/Spinner/index";
-import classnames from 'classnames';
+import classnames from "classnames";
 import {notification_show} from "../../actions/notification";
 const emailRegExp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
@@ -75,6 +75,7 @@ class Auth extends Component {
          } else {
             if(credentials.email !== '' && credentials.password !== '') {
                auth_request(credentials);
+               this.props.goToWorkplace();
             } else {
                this.props.notification_show('ERROR', 'Provide email and password');
             }
@@ -142,7 +143,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
    goBack,
    auth_request,
    register_request,
-   notification_show
+   notification_show,
+   goToWorkplace: () => push('/workplace/')
 }, dispatch);
 
 export default connect(

@@ -14,7 +14,7 @@ const encryptionService = require('../services/encryptionService');
 
 describe('Auth', () => {
    beforeEach((done) => {
-      User.remove({}, (err) => {
+      User.remove({}, () => {
          done();
       });
    });
@@ -78,7 +78,7 @@ describe('Auth', () => {
    });
 
    describe('Sign in', () => {
-      it('it should return auth token', (done) => {
+      it('it should return auth token and userId', (done) => {
          let user = Object.assign(new User(), {
             email: 'userBOSS@gmail.com',
             password: 'password',
@@ -98,6 +98,7 @@ describe('Auth', () => {
                .end((err, res) => {
                   res.should.have.status(200);
                   res.body.should.have.property('accessToken');
+                  res.body.should.have.property('userId');
                   done();
                });
          });

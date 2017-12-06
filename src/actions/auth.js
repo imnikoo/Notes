@@ -1,5 +1,8 @@
-import http from 'axios';
-import { notification_show }from './notification';
+import {notification_show} from "./notification";
+import axios from "axios";
+const http = axios.create({
+   baseURL: 'http://localhost:3000/'
+});
 
 export const AUTH_REQUEST = 'auth/AUTH_REQUEST';
 export const auth_request = (credentials) => {
@@ -11,8 +14,8 @@ export const auth_request = (credentials) => {
          url: 'api/auth/signin',
          headers: {'Authorization': `Basic ${base64credentials}`}
       }).then(response => {
-         let {accessToken} = response.data;
-         dispatch(auth_receive(accessToken));
+         let {accessToken, userId} = response.data;
+         dispatch(auth_receive(accessToken, userId));
       }).catch(err => {
           dispatch(auth_error());
           dispatch(notification_show('ERROR', err.response.data.errorMessage));
@@ -21,11 +24,11 @@ export const auth_request = (credentials) => {
 };
 
 export const AUTH_RECEIVE = 'auth/AUTH_RECEIVE';
-export const auth_receive = (token) => {
+export const auth_receive = (token, userId) => {
    return dispatch => {
       dispatch({
          type: AUTH_RECEIVE,
-         payload: token
+         payload: {token, userId}
       });
    }
 };
